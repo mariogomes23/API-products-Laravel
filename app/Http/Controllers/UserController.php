@@ -15,6 +15,7 @@ class UserController extends Controller
         $this->user = $user;
 
     }
+    // ============================================
 
     public function index(){
 
@@ -22,6 +23,37 @@ class UserController extends Controller
 
     return response()->json($users);
     }
+
+    //================================================
+    public function show($id){
+
+        $users = $this->user->findOrFail($id);
+
+        return response()->json([
+            "message"=>201
+        ]);
+
+        }
+
+        // ====================================================
+
+        public function update(Request $request,$id){
+
+            $users = $this->user->all();
+
+            return response()->json($users);
+
+            }
+
+            //=================================================
+
+            public function delete($id){
+
+                $users = $this->user->all();
+
+                return response()->json($users);
+                }
+
 
 
 }
