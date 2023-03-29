@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\User\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -21,7 +22,7 @@ class UserController extends Controller
 
     $users = $this->user->all();
 
-    return response()->json($users);
+    return UserResource::collection($users);
     }
 
     //================================================
@@ -29,29 +30,35 @@ class UserController extends Controller
 
         $users = $this->user->findOrFail($id);
 
-        return response()->json([
-            "message"=>201
-        ]);
+        return new UserResource($users);
 
         }
+        public function store(Request $request){
+
+            $users = $this->user->create($request->all());
+
+            return new UserResource($users);
+
+            }
 
         // ====================================================
 
         public function update(Request $request,$id){
 
-            $users = $this->user->all();
+            $users = $this->user->findOrFail($id);
+            $users->update($request->all());
 
-            return response()->json($users);
-
+            return new UserResource($users);
             }
 
             //=================================================
 
             public function delete($id){
 
-                $users = $this->user->all();
+                $users = $this->user->findOrFail($id);
+                $users->delete();
 
-                return response()->json($users);
+                return new UserResource($users);
                 }
 
 
