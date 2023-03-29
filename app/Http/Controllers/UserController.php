@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\User\UserCreateRequest;
+use App\Http\Requests\User\UserUpdateRequest;
 use App\Http\Resources\User\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -34,11 +36,11 @@ class UserController extends Controller
         return new UserResource($users);
 
         }
-        public function store(Request $request){
+        public function store(UserCreateRequest $request){
 
             $users = $this->user->create([
 
-                "fisrt_name"=>$request->first_name,
+                "first_name"=>$request->first_name,
                 "last_name"=>$request->last_name,
                 "email"=>$request->email,
                 "password"=>Hash::make($request->password),
@@ -50,12 +52,12 @@ class UserController extends Controller
 
         // ====================================================
 
-        public function update(Request $request,$id){
+        public function update(UserUpdateRequest $request,$id){
 
             $users = $this->user->findOrFail($id);
             $users->update([
 
-                "fisrt_name"=>$request->first_name,
+                "first_name"=>$request->first_name,
                 "last_name"=>$request->last_name,
                 "email"=>$request->email,
                 "password"=>Hash::make($request->password),
