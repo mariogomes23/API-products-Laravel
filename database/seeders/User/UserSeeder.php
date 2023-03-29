@@ -2,6 +2,8 @@
 
 namespace Database\Seeders\User;
 
+use App\Models\User;
+use Faker\Factory;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -13,5 +15,6 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         //
+        User::factory()->count(10)->create();
     }
 }

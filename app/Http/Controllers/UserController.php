@@ -18,7 +18,9 @@ class UserController extends Controller
 
     public function index(){
 
-        echo "hello word";
+    $users = $this->user->all();
+
+    return response()->json($users);
     }
 
 
