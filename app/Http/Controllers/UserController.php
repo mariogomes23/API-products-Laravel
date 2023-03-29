@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\User\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -20,7 +21,7 @@ class UserController extends Controller
 
     public function index(){
 
-    $users = $this->user->all();
+    $users = $this->user->paginate(5);
 
     return UserResource::collection($users);
     }
@@ -35,7 +36,13 @@ class UserController extends Controller
         }
         public function store(Request $request){
 
-            $users = $this->user->create($request->all());
+            $users = $this->user->create([
+
+                "fisrt_name"=>$request->first_name,
+                "last_name"=>$request->last_name,
+                "email"=>$request->email,
+                "password"=>Hash::make($request->password),
+            ]);
 
             return new UserResource($users);
 
