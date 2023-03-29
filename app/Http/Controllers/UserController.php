@@ -53,7 +53,14 @@ class UserController extends Controller
         public function update(Request $request,$id){
 
             $users = $this->user->findOrFail($id);
-            $users->update($request->all());
+            $users->update([
+
+                "fisrt_name"=>$request->first_name,
+                "last_name"=>$request->last_name,
+                "email"=>$request->email,
+                "password"=>Hash::make($request->password),
+
+            ]);
 
             return new UserResource($users);
             }
