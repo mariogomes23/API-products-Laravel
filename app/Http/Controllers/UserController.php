@@ -23,7 +23,7 @@ class UserController extends Controller
 
     public function index(){
 
-    $users = $this->user->paginate(5);
+    $users = $this->user->paginate();
 
     return UserResource::collection($users);
     }
