@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\User\LoginRequest;
+use App\Http\Requests\User\RegisterRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -19,7 +21,7 @@ class AuthController extends Controller
     }
     //=========================================
 
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
 
           $users = $this->user->where("email",$request->email)->first();
@@ -45,7 +47,7 @@ class AuthController extends Controller
     //============================================
 
 
-    public function register(Request $request)
+    public function register(RegisterRequest $request)
     {
         $users = $this->user->create(
             [
