@@ -86,5 +86,31 @@ class UserController extends Controller
                     return auth()->user();
                 }
 
+                // ============================================
+
+                public function updateInfo(Request $request)
+                {
+                    $users = auth()->user();
+
+                    $users->update([
+
+                        "first_name" => $request->first_name,
+                        "last_name" => $request->last_name,
+                        "email" => $request->email
+                    ]);
+
+                    return new UserResource($users);
+
+                }
+
 
 }
+
+
+
+
+
+
+
+
+
