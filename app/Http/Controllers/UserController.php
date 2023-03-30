@@ -77,6 +77,14 @@ class UserController extends Controller
                 return new UserResource($users);
                 }
 
+                //=================================
+
+
+                public function user()
+                {
+
+                    return auth()->user();
+                }
 
 
 }
