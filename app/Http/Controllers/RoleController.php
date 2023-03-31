@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Role\RoleCreateRequest;
+use App\Http\Requests\Role\RoleUpdateRequest;
 use App\Http\Resources\Role\RoleResource;
 use App\Models\Role;
 use Illuminate\Http\Request;
@@ -36,7 +38,7 @@ class RoleController extends Controller
 
 
         //============================
-        public function store(Request $request){
+        public function store(RoleCreateRequest $request){
 
             $roles = $this->role->create([
 
@@ -50,7 +52,7 @@ class RoleController extends Controller
 
         // ====================================================
 
-        public function update(Request $request,$id){
+        public function update(RoleUpdateRequest $request,$id){
 
             $roles = $this->role->findOrFail($id);
             $roles->update([

@@ -1,12 +1,12 @@
 <?php
 
-namespace Database\Seeders\Produto;
+namespace Database\Seeders\OrdemItem;
 
-use App\Models\Produto;
+use App\Models\OrdemItem;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class ProdutoSeeder extends Seeder
+class OrdemItemSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,6 +14,7 @@ class ProdutoSeeder extends Seeder
     public function run(): void
     {
         //
-        Produto::factory()->count(10)->create();
+       OrdemItem::factory()->count(10)->create();
+
     }
 }
