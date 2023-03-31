@@ -23,7 +23,7 @@ class UserController extends Controller
 
     public function index(){
 
-    $users = $this->user->paginate();
+    $users = $this->user->with("role")->paginate();
 
     return UserResource::collection($users);
     }
@@ -31,7 +31,7 @@ class UserController extends Controller
     //================================================
     public function show($id){
 
-        $users = $this->user->findOrFail($id);
+        $users = $this->user->with("role")->findOrFail($id);
 
         return new UserResource($users);
 
@@ -43,6 +43,7 @@ class UserController extends Controller
                 "first_name"=>$request->first_name,
                 "last_name"=>$request->last_name,
                 "email"=>$request->email,
+                "role_id"=>$request->role_id,
                 "password"=>Hash::make($request->password),
             ]);
 
@@ -60,6 +61,7 @@ class UserController extends Controller
                 "first_name"=>$request->first_name,
                 "last_name"=>$request->last_name,
                 "email"=>$request->email,
+                "role_id"=>$request->role_id,
                 "password"=>Hash::make($request->password),
 
             ]);
@@ -96,7 +98,22 @@ class UserController extends Controller
 
                         "first_name" => $request->first_name,
                         "last_name" => $request->last_name,
-                        "email" => $request->email
+                        "email" => $request->email,
+
+                    ]);
+
+                    return new UserResource($users);
+
+                }
+
+                // ===============================================
+
+                public function updatePassword(Request $request)
+                {
+                    $users = $this->user();
+
+                    $users->update([
+                        "password" => Hash::make($request->password)
                     ]);
 
                     return new UserResource($users);
