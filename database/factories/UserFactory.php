@@ -12,7 +12,7 @@ use Illuminate\Support\Str;
  */
 class UserFactory extends Factory
 {
-   
+
     public function definition(): array
     {
         return [
@@ -21,7 +21,7 @@ class UserFactory extends Factory
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => Hash::make("12345678"),
-             'role_id' => 1
+             'role_id' => Role::inRandomOrder()->first()
             // password
 
         ];

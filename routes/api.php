@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProdutoController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -20,6 +21,7 @@ Route::middleware(["auth:sanctum"])->group(function(){
     Route::apiResource("roles",RoleController::class);
     Route::apiResource("products",ProdutoController::class);
     Route::apiResource("orders",OrderController::class)->only(["index","show"]);
+    Route::apiResource("permissions",PermissionController::class);
 
 });
 

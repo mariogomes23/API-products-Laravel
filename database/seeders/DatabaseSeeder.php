@@ -5,10 +5,11 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use Database\Seeders\Order\OrderSeeder;
-use Database\Seeders\Produto\ProdutoSeeder as ProdutoProdutoSeeder;
+use Database\Seeders\Permission\PermissionSeeder;
 use Database\Seeders\Role\RoleSeeder;
 use Database\Seeders\User\UserSeeder;
 use Database\Seeders\Produto\ProdutoSeeder;
+use Database\Seeders\RolePermission\RolePermissionSeeder;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -23,5 +24,7 @@ class DatabaseSeeder extends Seeder
         $this->call(UserSeeder::class);
         $this->call(ProdutoSeeder::class);
         $this->call(OrderSeeder::class);
+        $this->call(PermissionSeeder::class);
+        $this->call(RolePermissionSeeder::class);
     }
 }

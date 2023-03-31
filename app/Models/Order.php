@@ -16,9 +16,21 @@ class Order extends Model
         "email"
     ];
 
+    //========================================
     public function  orderItems():HasMany
     {
         return $this->hasMany(OrdemItem::class);
+
+    }
+    //====================================
+
+    public function getTotalAttribute()
+    {
+        return $this->orderItems->sum(function(OrdemItem $item){
+            return $item->price*$item->quantity;
+        });
+
+
 
     }
 }
