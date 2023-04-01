@@ -7,6 +7,7 @@ use App\Http\Requests\User\UserUpdateRequest;
 use App\Http\Resources\User\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -16,6 +17,8 @@ class UserController extends Controller
 
     public function __construct(User $user)
     {
+
+       // Gate::authorize("view","users");
         $this->user = $user;
 
     }
@@ -84,8 +87,12 @@ class UserController extends Controller
 
                 public function user()
                 {
+                    $users =auth()->user();
 
-                    return auth()->user();
+                    return response()->json([
+                        "user"=>$users,
+                        "permissions"=>$users->permissions()
+                    ]);
                 }
 
                 // ============================================

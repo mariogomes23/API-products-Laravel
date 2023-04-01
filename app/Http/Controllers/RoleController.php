@@ -7,6 +7,7 @@ use App\Http\Requests\Role\RoleUpdateRequest;
 use App\Http\Resources\Role\RoleResource;
 use App\Models\Role;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class RoleController extends Controller
 {
@@ -45,6 +46,19 @@ class RoleController extends Controller
                 "name"=>$request->name,
 
             ]);
+            if($permissions = $request->input("permissions"))
+            {
+                foreach($permissions as $permission)
+                {
+
+                    DB::table("role_permission")->insert([
+
+                        "role_id"=>$roles->id,
+                        "permission_id"=>$permission->id
+                    ]);
+
+                }
+            }
 
             return new RoleResource($roles);
 
@@ -58,6 +72,21 @@ class RoleController extends Controller
             $roles->update([
 
                 "name"=>$request->name ]);
+                DB::table("role_permission")->where("role_id",$roles->id->delete());
+
+                if($permissions = $request->input("permissions"))
+                {
+                    foreach($permissions as $permission)
+                    {
+
+                        DB::table("role_permission")->insert([
+
+                            "role_id"=>$roles->id,
+                            "permission_id"=>$permission->id
+                        ]);
+
+                    }
+                }
 
             return new RoleResource($roles);
             }
@@ -67,6 +96,9 @@ class RoleController extends Controller
             public function destroy($id){
 
                 $roles = $this->role->findOrFail($id);
+
+                DB::table("role_permission")->where("role_id",$roles->id->delete());
+
                 $roles->delete();
 
                 return new RoleResource($roles);
